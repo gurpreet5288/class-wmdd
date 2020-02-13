@@ -16,6 +16,10 @@ const chalk  = require('chalk');
 /****************************************************** */
 const addNote = (title,body) => {
     const notes = loadNotes();
-    
+    let dupNote = false;
+
+    if(notes.length > 0) {
+        duplicate = notes.find((note) => note.title === title)
+    }
 }
  
