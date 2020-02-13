@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+<script>
+let numbers = [];
+for (let i=2; i <= 20; i+=2) {
+  numbers.push(i);
+}
+
+function makeList() {
+  return numbers.map((number) => <li>Jack-{number}</li>);
+}
+
+let name = "jack Smith";
+let element = <p>This is here via JSX<br/>Here is a generated list: <ul>{makeList()}</ul></p>;
+
+ReactDOM.render(element, testReact);
+  
+</script>
+
+<h1>This is just a test of the React Learning System</h1>
+<div id="testReact"></div>
+<div>So How was that??? Not so difficult...</div>
+
+</html>
