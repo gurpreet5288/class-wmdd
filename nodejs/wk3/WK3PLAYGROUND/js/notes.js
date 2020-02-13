@@ -19,7 +19,33 @@ const addNote = (title,body) => {
     let dupNote = false;
 
     if(notes.length > 0) {
-        duplicate = notes.find((note) => note.title === title)
+        dupNote = notes.find((note) => note.title === title)
     }
+
+    if(!dupNote){
+        notes.push({
+            title : title,
+            body : body
+        })
+        console.log(chalk.green.inverse('New Note Added!'))
+        saveNotes(notes);
+    }else{
+        console.log(chalk.red.inverse('Title already exists!'))
+    }
+
 }
  
+const loadNotes = () => {
+    try{
+        return JSON.parse(fs.readFileSync('notes.json').toString())
+    }catch{
+        return[]
+    }
+}
+
+const saveNotes = (notes) =>{
+    fs.writeFileSync('notes.json', JSON.stringify(notes))
+}
+module.exports={
+    addNote
+}
