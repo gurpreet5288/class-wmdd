@@ -34,7 +34,6 @@ const addNote = (title,body) => {
     }
 
 }
- 
 const loadNotes = () => {
     try{
         return JSON.parse(fs.readFileSync('notes.json').toString())
@@ -46,6 +45,42 @@ const loadNotes = () => {
 const saveNotes = (notes) =>{
     fs.writeFileSync('notes.json', JSON.stringify(notes))
 }
+ 
+
+/*************************list*****************************/ 
+const listNote = () => {
+    const notes = loadNotes(); 
+    console.log(notes);
+}
+
+
+/*************************read*****************************/ 
+const readNote = (title) => {
+    const notes = loadNotes(); 
+    const result = notes.filter(note => note.title === title);
+    if(result.length){
+        console.log(result);
+    }else{
+        console.log(chalk.red.inverse('Title does not exists!'))
+    }
+     
+}
+
+
+
+/*************************remove*****************************/ 
+
+
+
+
+
+/*************************change*****************************/  
+
+
+
+
 module.exports={
-    addNote
+    addNote,listNote,
+    readNote
+
 }
