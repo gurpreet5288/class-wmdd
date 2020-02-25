@@ -38,7 +38,24 @@ class Character extends Component{
         })
     }
     render(){
-        return (<div></div>)
+        return (<div>
+            <h2>{this.props.name}'s Bio:</h2>
+             <p>Race : {this.props.race}</p>
+             <p>
+                Status : {this.props.status}
+                <br/> 
+                (With Health at : {this.state.health} , <br/> 
+                and stamina at : {this.state.stamina} 
+             </p>
+             <p>Gold {this.state.gold}</p> 
+             <p className={this.props.comment ? "visible" : "hidden"}>
+                Comment {this.props.comment}</p> 
+
+            <button onClick={this.addHealth}>Add 10 Health</button>
+            <button onClick={this.addStamina}>Add 5 Stamina</button>
+            <button onClick={this.addGold}>Add 3 Gold</button> 
+            <hr/>
+        </div>)
     }
 }
 
