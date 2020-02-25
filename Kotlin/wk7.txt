@@ -38,7 +38,40 @@ fun main(args: Array<String>) {
     
     */
    
+    /*
+	  var grades = arrayOf(32,23,4,234)
+	  for(grade in grades){
+		  println("$grade/100")
+	  }
+	  println("________________________")
+	  println	("${grades.average()}100")
     
+	
+	*/
+	
+	
+	/*
+	fun hello( num : String ){
+		  println("hi $num")
+	}
+	hello("#") 
+	
+	
+	fun add( num1 : Byte =0,num2 : Byte =0  ) : Int{return    num1 +  num2  }
+		
+	  var r =  add(2,3) 
+	  println(r)
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     /*val age: Double = 25
    val d: Double = 100.00
    val f: Float = 100.00f
