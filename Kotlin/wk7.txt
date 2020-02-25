@@ -1,0 +1,58 @@
+/**
+ * We declare a package-level function main which returns Unit and takes
+ * an Array of strings as a parameter. Note that semicolons are optional.
+ */
+
+fun main(args: Array<String>) {
+ /* val age  = 23
+   	var isLegal = age >= 18
+    if(isLegal){
+        println("Your Age is ${age +1} , which means you are legal");
+    }
+   */
+    
+    /*
+    var myList = listOf(1,2,3,4) 
+    var myArray = arrayOf(1,2,3,4)
+    var myMutableList  = mutableListOf(1,2,3,4) 
+
+    myMutableList[1] =5;
+    myMutableList.add(1,23)
+    println(myMutableList[1])
+
+    myArray[2] =5
+    println(myArray[2])
+*/  
+    
+   /*ar myMap = mapOf<String,Int>(1 to 33,"a" to 2, "b" to 4)*/
+    var myMap = mapOf<Int,Int>(1 to 33,2 to 32,3  to 43)
+    println("student a student number is ${myMap[1]}")  
+    
+    
+    /*
+   val pi: Double = 3.14
+   var radius:Byte = 5
+   var test  = "test"
+   var circum: Double = (radius * pi).toInt() * 2.0
+   println(circum);
+    
+    */
+   
+    
+    /*val age: Double = 25
+   val d: Double = 100.00
+   val f: Float = 100.00f
+   val l: Long = 1000000004
+   val s: Short = 10
+   val b: Byte = 1
+   
+   println("Your Int Value is "+a);
+   println("Your Double  Value is "+d);
+   println("Your Float Value is "+f);
+   println("Your Long Value is "+l);
+   println("Your Short Value is "+s);
+   println("Your Byte Value is "+b);*/
+    
+    
+    
+}
