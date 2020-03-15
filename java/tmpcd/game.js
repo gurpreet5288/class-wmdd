@@ -9,8 +9,8 @@ const backImage= new Image();
 backImage.src = "images/background.png";
 const ratImage= new Image(); 
 ratImage.src = "images/rat.png";
-/*const cheeseImage= new Image();  
-cheeseImage.onload = function () { 
+const cheeseImage= new Image();  
+/*cheeseImage.onload = function () { 
   cheeseImage = true;
 };
 */
@@ -20,7 +20,7 @@ cheeseImage.src = "images/cheese.png";
 var CheesesCaught = 0;
 var keysDown = {};
 var gameover=false; 
-var count =2;
+var count =32;
 
 
 
