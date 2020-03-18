@@ -4,60 +4,47 @@ var ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 480;
 document.body.appendChild(canvas);
- 
-const backImage= new Image(); 
-backImage.src = "images/background.png";
-const ratImage= new Image(); 
-ratImage.src = "images/rat.png";
-const cheeseImage= new Image();  
-/*cheeseImage.onload = function () { 
-  cheeseImage = true;
-};
-*/
 
-
-cheeseImage.src = "images/cheese.png";
 var CheesesCaught = 0;
 var keysDown = {};
 var gameover=false; 
-var count =32;
+var count = 5;
 
 
-
-  
 class Cheese{
-    constructor(){ 
-      this.cheeseImage = new Image();
+    constructor(){  
+        this.cheeseImage = new Image(); 
+        this.cheeseImage.src = "images/cheese.png";      
     }
     reset(){
-      this.x = 32 + (Math.random() * (canvas.width - 64));
-      this.y = 32 + (Math.random() * (canvas.height - 64));    
+        this.x = 32 + (Math.random() * (canvas.width - 64));
+        this.y = 32 + (Math.random() * (canvas.height - 64));    
     }
-    drawCheese(){      
-      if(!gameover){
-        ctx.drawImage(cheeseImage, this.x, this.y);
-      }
-      
+    drawCheese(){
+        ctx.drawImage(this.cheeseImage, this.x, this.y); 
     }
 
 }
 
-
  
 class Rat {
+
     constructor(speed){
       this.speed = speed;
       this.size = 32;  
+      this.ratImage= new Image(); 
+      this.ratImage.src = "images/rat.png";
     }
+
     reset(){
       this.x = canvas.width / 2;; 
       this.y = canvas.height / 2;
     }
-    drawRat(){ 
-      if(!gameover){       
-         ctx.drawImage(ratImage, this.x, this.y);
-      }
+
+    drawRat(){  
+      ctx.drawImage(this.ratImage, this.x, this.y);      
     }
+
     update (modifier){
       if (38 in keysDown){ //   up key
         if(this.y < 0 ){
@@ -95,74 +82,79 @@ class Rat {
 
 
 class keyboardcontrols{
-  constructor(){
-    
-  }
-  init(){
-    addEventListener("keydown", function (key){
-      keysDown[key.keyCode] = true;
-    }, false);
-    
-    addEventListener("keyup", function (key){
-      delete keysDown[key.keyCode];
-    }, false); 
-  }  
-  crash(){  
-    if (
-      Rat1.x <= (Cheese1.x + 32)
-      && Cheese1.x <= (Rat1.x + 32)
-      && Rat1.y <= (Cheese1.y + 32)
-      && Cheese1.y <= (Rat1.y + 32)
-    ) {
-      ++CheesesCaught;
-      Cheese1.reset();
-      Rat1.reset();
+    constructor(){
+      
     }
-  }
+
+    init(){
+          addEventListener("keydown", function (key){
+            keysDown[key.keyCode] = true;
+          }, false);
+          
+          addEventListener("keyup", function (key){
+            delete keysDown[key.keyCode];
+          }, false); 
+    }  
+    
+    crash(){  
+          if (
+            Rat_obj.x <= (Cheese_obj.x + 32)
+            && Cheese_obj.x <= (Rat_obj.x + 32)
+            && Rat_obj.y <= (Cheese_obj.y + 32)
+            && Cheese_obj.y <= (Rat_obj.y + 32)
+          ) {
+            ++CheesesCaught;
+            Cheese_obj.reset();
+            Rat_obj.reset();
+          }
+    }
 
 }
 
 
 
-class Game {
+class Game {  
+
     constructor( ){
-      
+        this.backImage= new Image(); 
+        this.backImage.src = "images/background.png";
     }
+
     // Draw everything on the canvas
     render() {
-          
-        if(!gameover){ 
-          ctx.drawImage(backImage, 0, 0);
-        }
-        // Display score and time 
-        Rat1.drawRat();
-        Cheese1.drawCheese();
-        ctx.fillStyle = "rgb(250, 250, 250)";
-        ctx.font = "24px Helvetica";
-        ctx.textAlign = "left";
-        ctx.textBaseline = "top";
-        ctx.fillText("Cheeses caught: " + CheesesCaught, 20, 20); 
-        ctx.fillText("Time: " + count, 20, 50);
-        if(gameover){ 
-          ctx.fillText("Game over!", 200, 220);
-        } 
+
+          // Display score and time 
+          Rat_obj.drawRat();
+          Cheese_obj.drawCheese();
+          ctx.fillStyle = "rgb(250, 250, 250)";
+          ctx.font = "24px Helvetica";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "top";
+          ctx.fillText("Cheeses caught: " + CheesesCaught, 20, 20); 
+          ctx.fillText("Time: " + count, 20, 50);
+          if(gameover){ 
+            ctx.fillText("Game over!", 200, 220);
+          }
     }
 
-        
-    
-
+    drawbg(){      
+          if(!gameover){ 
+            ctx.drawImage(this.backImage, 0, 0);
+          }
+    } 
         
     // The main game loop
-    main(){   
-      Rat1.update(0.02);
-      controls.crash();  
-      controls.init(); 
-      // run the update function
-      /* update(0.02); // do not change
-      // run the render function*/
-      game.render();
-      // Request to do this again ASAP
-      requestAnimationFrame(game.main);
+    main(){  
+          game.drawbg(); 
+          Rat_obj.update(0.02);
+          controls.crash();  
+          controls.init(); 
+          // run the update function
+          /* update(0.02); // do not change
+          // run the render function*/
+          game.render();
+          // Request to do this again ASAP
+          requestAnimationFrame(game.main);
     }
 
 }
@@ -178,8 +170,7 @@ var counter =function(){
           gameover = true;
           count=0; 
         }
-    }
-
+}
 setInterval(counter, 1000);
 
 
@@ -192,15 +183,13 @@ var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
 // Let's play this game! 
-let Cheese1 = new Cheese();
-let Rat1 = new Rat(256); 
+let Cheese_obj = new Cheese();
+let Rat_obj = new Rat(256); 
 let controls = new keyboardcontrols();
 let game = new Game();
 
-
-
-Cheese1.reset();    
-Rat1.reset();    
+Cheese_obj.reset();    
+Rat_obj.reset();    
 game.main();
  // timer interval is every second (1000ms)
 
