@@ -9,7 +9,20 @@ const pubDirPath = path.join(__dirname,'../public');
 
 app.use(express.static(pubDirPath))
 
- 
+app.get('/test', (req, res) => { 
+    //  console.log(req.query.test1)
+    //  res.send('it is cool');  
+    if (!req.query.tst2) {
+        res.send({
+            error: 'You must provide a tst2 parameter'
+        })
+    } else {
+        res.send({
+            recParm1: req.query.tst1,
+            recParm2: req.query.tst2
+        })
+    }
+});
 
 
 app.get('/weather', (req, res) => { 
@@ -28,3 +41,4 @@ var server = app.listen(3000, () => {
     console.log("Example app listening at http://%s:%s", host, port) 
     
 })
+
