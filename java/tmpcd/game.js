@@ -137,10 +137,10 @@ class Item{
             let iY =  this.y;
           //  alert(iX +'----'+iY); 
             if (
-              Rat_obj.x <= (iX  + 15)
-              && iX <= (Rat_obj.x  + 15)
-              && Rat_obj.y <= (iY  + 15)
-              && iY <= (Rat_obj.y  + 15)
+              Rat_obj.x <= (iX  + 25)
+              && iX <= (Rat_obj.x  + 25)
+              && Rat_obj.y <= (iY  + 25)
+              && iY <= (Rat_obj.y  + 25)
             ) { 
               this.y += 50 ; 
               ++BulletCaught;
@@ -148,7 +148,7 @@ class Item{
               Rat_obj.reset();
               if(BulletCaught >= 10){
                   gameover = true;
-                  alert(BulletCaught);
+                 // alert(BulletCaught);
               } 
             }
       }
