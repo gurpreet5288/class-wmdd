@@ -126,8 +126,6 @@ class Bullet{
                   this.y = 0 ;   
             }else{
                     this.y += this.stepSize;  
-                  //  let iX =  this.x;
-                  //  let iY =  this.y; 
                     if (
                       Rat_obj.x <= (this.x  + 25)
                       && this.x <= (Rat_obj.x  + 25)
