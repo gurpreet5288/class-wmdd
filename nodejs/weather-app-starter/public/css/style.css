@@ -1,0 +1,24 @@
+main {
+    padding: 50px;
+    background-color: aqua;
+    height: 20vh;
+}
+
+.inputBox {
+    display: block;
+    width: 250px;
+    height: 30px;
+}
+
+.weatherButton {
+    display: block;
+    margin-top: 10px;
+    padding: 15px 40px;
+    border-radius: 100px;
+    background-color: blueviolet;
+    color: white;
+}
+
+.fontSmaller {
+    font-size: .9rem;
+}
