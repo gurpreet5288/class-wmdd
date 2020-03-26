@@ -8,7 +8,7 @@ document.body.appendChild(canvas);
 var CheesesCaught = 0;
 var keysDown = {};
 var gameover=false; 
-var count = 50; 
+var count = 10; 
 var ItemArr = [];
 const stepMax = 8;
 const stepMin = 3;  
@@ -86,10 +86,8 @@ class Rat {
 
 
 class keyboardcontrols{
-    constructor(){
-      
-    }
-
+    constructor(){ 
+    } 
     init(){
           addEventListener("keydown", function (key){
             keysDown[key.keyCode] = true;
@@ -99,7 +97,6 @@ class keyboardcontrols{
             delete keysDown[key.keyCode];
           }, false); 
     }  
-    
     crash(){  
           if (
             Rat_obj.x <= (Cheese_obj.x + 32)
@@ -111,91 +108,67 @@ class keyboardcontrols{
             Cheese_obj.reset();
             Rat_obj.reset();
           }
-    }
+    } 
+}  
 
-}
-
-
-class Item{
-  constructor(){   
-      this.bulletImage = new Image(); 
-      this.bulletImage.src = "images/bullet.png"; 
-      this.x = 32 + (Math.random() * (canvas.width - 64));
-      this.y = 0;  
-      this.stepSize = Math.floor(Math.random() * (stepMax - stepMin + 1)) + stepMin;
-       
-  }
-  moveDown (){  
-      if(this.y >= canvas.height   ){  
-        this.x = 32 + (Math.random() * (canvas.width - 64));
-        this.y = 0 ;   
-      }else{
-        this.y += this.stepSize; 
-        
-
-            let iX =  this.x;
-            let iY =  this.y;
-          //  alert(iX +'----'+iY); 
-            if (
-              Rat_obj.x <= (iX  + 25)
-              && iX <= (Rat_obj.x  + 25)
-              && Rat_obj.y <= (iY  + 25)
-              && iY <= (Rat_obj.y  + 25)
-            ) { 
-              this.y += 50 ; 
-              ++BulletCaught;
-              Cheese_obj.reset();
-              Rat_obj.reset();
-              if(BulletCaught >= 10){
-                  gameover = true;
-                 // alert(BulletCaught);
-              } 
+class Bullet{
+      constructor(){   
+            this.bulletImage = new Image(); 
+            this.bulletImage.src = "images/bullet.png"; 
+            this.x = 32 + (Math.random() * (canvas.width - 64));
+            this.y = 0;  
+            this.stepSize = Math.floor(Math.random() * (stepMax - stepMin + 1)) + stepMin;
+      }
+      moveDown (){  
+            if(this.y >= canvas.height){  
+                  this.x = 32 + (Math.random() * (canvas.width - 64));
+                  this.y = 0 ;   
+            }else{
+                    this.y += this.stepSize;  
+                  //  let iX =  this.x;
+                  //  let iY =  this.y; 
+                    if (
+                      Rat_obj.x <= (this.x  + 25)
+                      && this.x <= (Rat_obj.x  + 25)
+                      && Rat_obj.y <= (this.y  + 25)
+                      && this.y <= (Rat_obj.y  + 25)
+                    ){ 
+                        this.y += 50 ; 
+                        ++BulletCaught;
+                       // Cheese_obj.reset();
+                       // Rat_obj.reset();
+                        if(BulletCaught >= 10){
+                            gameover = true; 
+                           // Rat_obj.reset();
+                        } 
+                    }
             }
       }
-  }
-  drawItem(){ 
-      //ctx.fillRect(this.xPos ,this.yPos,this.size,this.size);
-      ctx.drawImage(this.bulletImage, this.x, this.y); 
-  }
-  crash(){  
-    if (
-      Rat_obj.x <= (Cheese_obj.x + 32)
-      && Cheese_obj.x <= (Rat_obj.x + 32)
-      && Rat_obj.y <= (Cheese_obj.y + 32)
-      && Cheese_obj.y <= (Rat_obj.y + 32)
-    ) {
-      ++CheesesCaught;
-      Cheese_obj.reset();
-      Rat_obj.reset();
-    }
-}
-
-} 
-
-class Bullet extends Item{
-    constructor(){
-      super("green"); 
-      /*this.backImage= new Image(); 
-      this.backImage.src = "images/bullet.png";*/
-    }
-    /*
-    drawItem(){
-        ctx.fillStyle  = this.color;
-        ctx.fillRect(this.xPos ,this.yPos,this.size,this.size);
-    }*/
-}
+      drawItem(){  
+          ctx.drawImage(this.bulletImage, this.x, this.y); 
+      }
+     /* crash(){  
+            if (
+              Rat_obj.x <= (Cheese_obj.x + 32)
+              && Cheese_obj.x <= (Rat_obj.x + 32)
+              && Rat_obj.y <= (Cheese_obj.y + 32)
+              && Cheese_obj.y <= (Rat_obj.y + 32)
+            ) {
+              ++CheesesCaught;
+             // Cheese_obj.reset();
+             // Rat_obj.reset();
+            }
+      } */
+}  
 
 
 class Game {  
-
     constructor( ){
         this.backImage= new Image(); 
-        this.backImage.src =    "images/background.png";
-    }
-
+        this.backImage.src = "images/background.png";
+    } 
     // Draw everything on the canvas
     render() {
-
           // Display score and time 
           Rat_obj.drawRat();
           Cheese_obj.drawCheese();
@@ -203,12 +176,18 @@ class Game {
           ctx.font = "24px Helvetica";
           ctx.textAlign = "left";
           ctx.textBaseline = "top";
-          ctx.fillText("Cheeses caught: " + CheesesCaught, 20, 20); 
-          ctx.fillText("Time: " + count, 20, 50);
-          ctx.fillText("Bullet caught: " + BulletCaught, 20, 70); 
           if(gameover){ 
-            ctx.fillText("Game over!", 200, 220);
+            ctx.fillText("Game over!", 200, 220);  
+          }else{ 
+            if (count >= 0) {
+              ctx.fillText("Cheeses caught: " + CheesesCaught, 20, 20); 
+              ctx.fillText("Bullet caught: " + BulletCaught, 20, 50); 
+            }
           }
+          if (count >= 0) { 
+              ctx.font = "30px Helvetica";
+              ctx.fillText("Time: " + count, 20, 80); 
+          } 
     }
 
     drawbg(){      
@@ -218,51 +197,44 @@ class Game {
     } 
         
     // The main game loop
-    main(){ 
-        
-
-          game.drawbg(); 
-        
-          Rat_obj.update(0.02);
+    main(){   
+          game.drawbg();  
+          if(!gameover){
+            Rat_obj.update(0.02);
+          }
           controls.crash();  
-          controls.init(); 
-          
-           
-              
-         
-            // clearScreen();
-         
+          controls.init();  
+          // clearScreen(); 
           // run the update function
           /* update(0.02); // do not change
           // run the render function*/
-          game.render();
-          
+          game.render(); 
+
           // Request to do this again ASAP
           requestAnimationFrame(game.main);
           if(!gameover){
-            requestAnimationFrame(game.rmain);
+            //requestAnimationFrame(game.rmain);
+            for ( let i=0;i < TotalBulletsFire; i++){ 
+                ItemArr.push (new Bullet());   
+                ItemArr[i].drawItem();
+                ItemArr[i].moveDown();  
+            }
           }else{
-            ItemArr ='';
-          }
-            
+            ItemArr = [];
+          } 
     }
-    rmain(){
-       // setInterval(() => { 
+    /*rmain(){  
           for ( let i=0;i < TotalBulletsFire; i++){ 
               ItemArr.push (new Bullet());   
               ItemArr[i].drawItem();
               ItemArr[i].moveDown();  
-              
-
           } 
-            controls.crash(); 
-       // },1000); 
-    }
+          //controls.crash();  
+    }*/
 
 }
 const clearScreen  = ()  => {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  
+    ctx.clearRect(0,0,canvas.width,canvas.height); 
 }
 var counter =function(){
         count=count-1; // countown by 1 every second
@@ -276,10 +248,8 @@ var counter =function(){
           count=0; 
         }   
         if(count % 5 == 0) {
-          TotalBulletsFire +=1;
-        }else{
-         // alert(count);
-        }
+            TotalBulletsFire +=1;
+        } 
 }
 setInterval(counter, 1000);
 
