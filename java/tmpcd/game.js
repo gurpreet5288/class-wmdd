@@ -8,12 +8,13 @@ document.body.appendChild(canvas);
 var CheesesCaught = 0;
 var keysDown = {};
 var gameover=false; 
-var count = 10; 
+var count = 20; 
 var ItemArr = [];
 const stepMax = 8;
 const stepMin = 3;  
 var BulletCaught = 0; 
-var TotalBulletsFire = 1;
+var TotalBulletsFire = 1; 
+
 
 class Cheese{
     constructor(){  
@@ -177,22 +178,21 @@ class Game {
           ctx.textAlign = "left";
           ctx.textBaseline = "top";
           if(gameover){ 
-            ctx.fillText("Game over!", 200, 220);  
+               // ctx.drawImage(this.backImage, 200, 220,10,35, 200, 220,100,35);
+                ctx.fillText("Game over!", 200, 220);  
+                ctx.drawImage(this.backImage, 20,80,100,25, 20,80,100,25); 
+                ctx.fillText("Time: " + count, 20, 80); 
           }else{ 
             if (count >= 0) {
               ctx.fillText("Cheeses caught: " + CheesesCaught, 20, 20); 
-              ctx.fillText("Bullet caught: " + BulletCaught, 20, 50); 
-            }
-          }
-          if (count >= 0) { 
-              ctx.font = "30px Helvetica";
+              ctx.fillText("Bullet caught: " + BulletCaught, 20, 50);  
               ctx.fillText("Time: " + count, 20, 80); 
+            } 
           } 
-    }
-
+    } 
     drawbg(){      
           if(!gameover){ 
-            ctx.drawImage(this.backImage, 0, 0);
+              ctx.drawImage(this.backImage, 0, 0);
           }
     } 
         
