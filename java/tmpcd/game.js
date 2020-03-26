@@ -147,19 +147,7 @@ class Bullet{
       }
       drawItem(){  
           ctx.drawImage(this.bulletImage, this.x, this.y); 
-      }
-     /* crash(){  
-            if (
-              Rat_obj.x <= (Cheese_obj.x + 32)
-              && Cheese_obj.x <= (Rat_obj.x + 32)
-              && Rat_obj.y <= (Cheese_obj.y + 32)
-              && Cheese_obj.y <= (Rat_obj.y + 32)
-            ) {
-              ++CheesesCaught;
-             // Cheese_obj.reset();
-             // Rat_obj.reset();
-            }
-      } */
+      } 
 }  
 
 
@@ -222,15 +210,7 @@ class Game {
           }else{
             ItemArr = [];
           } 
-    }
-    /*rmain(){  
-          for ( let i=0;i < TotalBulletsFire; i++){ 
-              ItemArr.push (new Bullet());   
-              ItemArr[i].drawItem();
-              ItemArr[i].moveDown();  
-          } 
-          //controls.crash();  
-    }*/
+    } 
 
 }
 const clearScreen  = ()  => {
