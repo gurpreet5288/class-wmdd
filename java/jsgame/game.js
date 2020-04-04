@@ -141,7 +141,7 @@ class Bullet extends DrawImage{
                     ){ 
                         this.y += 50 ; 
                         ++BulletCaught; 
-                        if(BulletCaught > 10){
+                        if(BulletCaught > 50){
                             gameover = true;  
                         }
                     }
