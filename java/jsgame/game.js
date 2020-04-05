@@ -24,9 +24,7 @@ class DrawImage{
 
 class Cheese extends DrawImage{
     constructor(){ 
-      super();  
-      this.cheeseImage = new Image(); 
-      this.cheeseImage.src = "images/cheese.png";      
+      super();      
     }
     reset(){
         this.x = 32 + (Math.random() * (canvas.width - 64));
@@ -91,34 +89,6 @@ class Rat extends DrawImage{
 
     }
 }
- 
-
-
-class keyboardcontrols{
-    constructor(){ 
-    } 
-    init(){
-          addEventListener("keydown", function (key){
-            KeysPress[key.keyCode] = true;
-          }, false);
-          
-          addEventListener("keyup", function (key){
-            delete KeysPress[key.keyCode];
-          }, false); 
-    }  
-    crash(){  
-          if (
-            Rat_obj.x <= (Cheese_obj.x + 32)
-            && Cheese_obj.x <= (Rat_obj.x + 32)
-            && Rat_obj.y <= (Cheese_obj.y + 32)
-            && Cheese_obj.y <= (Rat_obj.y + 32)
-          ) {
-            ++CheesesCaught;
-            Cheese_obj.reset();
-            Rat_obj.reset();
-          }
-    } 
-}  
 
 class Bullet extends DrawImage{ 
       constructor(){   
@@ -147,7 +117,7 @@ class Bullet extends DrawImage{
                     }
             }
       }
-      drawItem(){   
+      firebullet(){   
           this.drawImage("images/bullet.png", this.x, this.y);    
       } 
 }  
@@ -175,7 +145,7 @@ class Game extends DrawImage{
         }else{ 
           if (count >= 0) {
             ctx.fillText("Cheeses caught: " + CheesesCaught, 20, 20); 
-            ctx.fillText("Bullet caught: " + BulletCaught, 20, 50);  
+            ctx.fillText("Bullets caught: " + BulletCaught, 20, 50);  
             ctx.fillText("Time: " + count, 20, 80); 
           } 
         } 
@@ -192,7 +162,7 @@ class Game extends DrawImage{
         if(!gameover){
           Rat_obj.update(0.02);
         }
-        controls.crash();  
+        game.collision();  
         controls.init();  
         game.render(); 
 
@@ -200,16 +170,41 @@ class Game extends DrawImage{
         if(!gameover){ 
           for ( let i=0;i < TotalBulletsFire; i++){ 
               ItemArr.push (new Bullet());   
-              ItemArr[i].drawItem();
+              ItemArr[i].firebullet();
               ItemArr[i].moveDown();  
           }
         }else{
           ItemArr = [];
         } 
   } 
-
+  
+  collision(){  
+      if (
+        Rat_obj.x <= (Cheese_obj.x + 32)
+        && Cheese_obj.x <= (Rat_obj.x + 32)
+        && Rat_obj.y <= (Cheese_obj.y + 32)
+        && Cheese_obj.y <= (Rat_obj.y + 32)
+      ) {
+        ++CheesesCaught;
+        Cheese_obj.reset();
+        Rat_obj.reset();
+      }
+  } 
 } 
-
+class keyboardcontrols extends Game{
+  constructor( ){
+      super(); 
+  } 
+  init(){
+        addEventListener("keydown", function (key){
+          KeysPress[key.keyCode] = true;
+        }, false);
+        
+        addEventListener("keyup", function (key){
+          delete KeysPress[key.keyCode];
+        }, false); 
+  }   
+} 
 var counter =function(){
         count=count-1; // countown by 1 every second
         // when count reaches 0 clear the timer, hide Cheese and
@@ -242,8 +237,3 @@ Cheese_obj.reset();
 Rat_obj.reset();    
 game.main();  
  // timer interval is every second (1000ms)
-
-
-
-
- 
