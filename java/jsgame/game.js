@@ -1,9 +1,15 @@
+// Create a Canvas Object to draw 2D graphics
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 550;
-canvas.height = 480;
+//Set Canvas Width
+canvas.width = 550; 
+//Set Canvas Height
+canvas.height = 480;  
 document.body.appendChild(canvas);
 
+// *******************************************************
+// ******** Global Variables ******************************
+// *******************************************************
 var CheesesCaught = 0;
 var KeysPress = {};
 var gameover=false; 
@@ -14,6 +20,10 @@ const stepMin = 3;
 var BulletCaught = 0; 
 var TotalBulletsFire = 5; 
 
+
+// *******************************************************
+// ******** DrawImage (Parent Class) *********************
+// *******************************************************
 class DrawImage{ 
   drawImage(objImagesrc,x,y){
     this.objImage = new Image(); 
@@ -22,6 +32,10 @@ class DrawImage{
   }
 }
 
+
+// *******************************************************
+// ******** Cheese (Child Class) *************************
+// *******************************************************
 class Cheese extends DrawImage{
     constructor(){ 
       super();      
@@ -35,7 +49,11 @@ class Cheese extends DrawImage{
     }
 
 } 
- 
+
+
+// *******************************************************
+// ******** Rat (Child Class) ****************************
+// *******************************************************
 class Rat extends DrawImage{ 
     constructor(speed){
       super();
@@ -90,6 +108,9 @@ class Rat extends DrawImage{
     }
 }
 
+// *******************************************************
+// ******** Bullet (Child Class) *************************
+// *******************************************************
 class Bullet extends DrawImage{ 
       constructor(){   
             super(); 
@@ -122,13 +143,16 @@ class Bullet extends DrawImage{
       } 
 }  
 
+// *******************************************************
+// ******** Game (Child Class) ***************************
+// *******************************************************
 class Game extends DrawImage{  
   constructor( ){
       super(); 
   } 
-  // Draw everything on the canvas
+  // Render all objects on canvas
   render() {
-        // Display score and time 
+         
         Rat_obj.drawRat();
         Cheese_obj.drawCheese();
         ctx.fillStyle = "rgb(0,0,0)";
@@ -156,7 +180,7 @@ class Game extends DrawImage{
     }
   }  
       
-  // The main game loop
+  
   main(){   
         game.drawbg();  
         if(!gameover){
@@ -191,7 +215,12 @@ class Game extends DrawImage{
       }
   } 
 } 
-class keyboardcontrols extends Game{
+
+
+// *******************************************************
+// ******** Keyboardcontrols (Child Class) ***************
+// *******************************************************
+class Keyboardcontrols extends Game{
   constructor( ){
       super(); 
   } 
@@ -206,34 +235,33 @@ class keyboardcontrols extends Game{
   }   
 } 
 var counter =function(){
-        count=count-1; // countown by 1 every second
-        // when count reaches 0 clear the timer, hide Cheese and
-        // Rat and finish the game
+        // Set countown by 1 every second 
+        count=count-1; 
+        // When countown value set to zero then finish the game
         if (count <= 0) {
-          // stop the timer
+          // clear counter
           clearInterval(counter);
-          // set game to finished
+          // set counter=0 and gameover=true to finish the game
           gameover = true;
           count=0; 
         }   
         if(count % 2 == 0) {
             TotalBulletsFire +=2;
-        } 
+        }
 }
 setInterval(counter, 1000);
 
 
-// Cross-browser support for requestAnimationFrame
-var w = window;
-requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+// Cross-browser support for requestAnimationFrame / webkit 
+var win = window;
+requestAnimationFrame = win.requestAnimationFrame || win.webkitRequestAnimationFrame || win.msRequestAnimationFrame || win.mozRequestAnimationFrame;
 
 
 let Cheese_obj = new Cheese();
 let Rat_obj = new Rat(256); 
-let controls = new keyboardcontrols();
+let controls = new Keyboardcontrols();
 let game = new Game();
 
 Cheese_obj.reset();    
 Rat_obj.reset();    
-game.main();  
- // timer interval is every second (1000ms)
+game.main();   
