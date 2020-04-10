@@ -13,12 +13,12 @@ document.body.appendChild(canvas);
 var CheesesCaught = 0;
 var KeysPress = {};
 var gameover=false; 
-var count = 25; 
+var count = 25; // set timer value
 var ItemArr = [];
 const stepMax = 8;
 const stepMin = 3;  
 var BulletCaught = 0; 
-var TotalBulletsFire = 5; 
+var TotalBulletsFire = 5;
 
 
 // *******************************************************
@@ -79,6 +79,7 @@ class Rat extends DrawImage{
     update (modifier){
       // Move up
       if (38 in KeysPress){  
+        // this condition will check rat position within canvas boundry,if not then set y = 0;
         if(this.y < 0 ){
           this.y = 0;
         }else{
@@ -87,6 +88,8 @@ class Rat extends DrawImage{
       }
       //Move down
       if (40 in KeysPress) { 
+        // this condition will check rat position within canvas boundry,
+        // if not then set y = canvas.height - this.size
         if(this.y >= canvas.height - this.size   ){  
           this.y = canvas.height - this.size ;  
         }else{
@@ -95,6 +98,7 @@ class Rat extends DrawImage{
       }
       // Move Left
       if (37 in KeysPress) { 
+        // This condition will check rat position within canvas boundry,if not then set xPos = 0
         if(this.x < 0 ){
           this.xPos = 0 ;
         }else{
@@ -103,7 +107,8 @@ class Rat extends DrawImage{
       }
       // Move right
       if (39 in KeysPress) { 
-        
+        // This condition will check rat position within canvas boundry,
+        // if not then set x = canvas.width -  this.size
         if(this.x >= canvas.width - this.size ){ 
           this.x = canvas.width -  this.size;
         }else{
@@ -125,13 +130,14 @@ class Bullet extends DrawImage{
             this.stepSize = Math.floor(Math.random() * (stepMax - stepMin + 1)) + stepMin;
       }
       // This function will constantly move bullets location from upward to downward.
-      // Also it will detect collision between bullet and rat.
       moveDown (){  
             if(this.y >= canvas.height){  
                   this.x = 32 + (Math.random() * (canvas.width - 64));
                   this.y = 0 ;   
             }else{
                     this.y += this.stepSize;  
+                    
+                    // This condition will detect collision between bullet and rat and update BulletCaught value based on that collision.
                     if (
                       Rat_obj.x <= (this.x  + 25)
                       && this.x <= (Rat_obj.x  + 25)
@@ -140,6 +146,7 @@ class Bullet extends DrawImage{
                     ){ 
                         this.y += 50 ; 
                         ++BulletCaught; 
+                        // if Total Value BulletCaught more than 50 then it will automatically set gameover
                         if(BulletCaught > 50){
                             gameover = true;  
                         }
@@ -172,6 +179,7 @@ class Game extends DrawImage{
         if(gameover){  
               ctx.fillText("Game over!", 200, 220);  
               ctx.drawImage(this.objImage, 20,80,100,25, 20,80,100,25); 
+              // if Total Value BulletCaught more than 50 then timer value set to zero
               if(count > 0){
                 count=0;
               }
