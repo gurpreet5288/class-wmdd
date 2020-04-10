@@ -13,7 +13,7 @@ document.body.appendChild(canvas);
 var CheesesCaught = 0;
 var KeysPress = {};
 var gameover=false; 
-var count = 25; // set timer value
+var count = 25; // set game timer value
 var ItemArr = [];
 const stepMax = 8;
 const stepMin = 3;  
