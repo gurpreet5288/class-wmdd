@@ -1,3 +1,7 @@
+Overall Description:
+The task is to implement 2D video game in javascript using object oriented fundamental concepts and terminology. In this game, a rat can move left,right,up and downward as per player's own choice to catch as many as cheese within a certain given timeframe. In order to increase the complexity level of this game there will be a number of bullets generated at random locations and will increase in numbers in every few seconds.
+
+
 DrawImage Class - 
 DrawImage class will render objects on the canvas window within the given x coordinates and y coordinates.
 
