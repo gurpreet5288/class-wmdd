@@ -203,6 +203,7 @@ class Game extends DrawImage{
 
         requestAnimationFrame(game.main);
         if(!gameover){ 
+          // create new bullet instance upto TotalBulletsFire value
           for ( let i=0;i < TotalBulletsFire; i++){ 
               ItemArr.push (new Bullet());   
               ItemArr[i].firebullet();
@@ -258,6 +259,7 @@ var counter =function(){
           gameover = true;
           count=0; 
         }   
+        // Create new bullets instance in every two seconds
         if(count % 2 == 0) {
             TotalBulletsFire +=2;
         }
